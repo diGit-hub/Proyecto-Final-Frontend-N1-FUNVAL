@@ -2,25 +2,27 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/svg+xml" href="/public/images/icons/logo-f7862584.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="styles/style.css">
     <title>Stays | WindBnb</title>
   </head>
   <body>
-    <header class="flex py-4 px-6">
+    <header class="flex justify-between py-4 px-6 mb-4 flex-wrap gap-6 items-center">
         <img alt="WindBnb Logo" src="/images/icons/logo-f7862584.svg">
+        <form class="shadow rounded-xl grid grid-cols-11 grid-rows-1 overflow-hidden h-12 text-search-bar-text min-w-[272px] max-w-[391px] min-[440px]:w-[272px]">
+            <input id="location" name="location" placeholder="Add Location"
+            class="col-start-1 col-end-6 row-1 text-xs text-center">
+            <input id="guests" name="guests" placeholder="Add guests"
+            class="col-start-6 col-end-10 row-1 text-xs text-center border-l border-search-bar-text/50 border-r">
+            <button id="search" class="flex col-start-10 col-end-12 row-1 items-center justify-center"><img alt="search icon" height="16px" width="16px" src="/images/icons/search.svg"></button>
+        </form>
     </header>
     <main>
-        <form>
-            <input>
-            <input>
-            <button></button>
-        </form>
 
-        <div>
-            <div>
-                <h1>Stays in Finland</h1>
+        <div class="p-4">
+            <div class="flex justify-between">
+                <h1 class="font-bold text-xl">Stays in Finland</h1>
                 <span>12+ stays</span>
             </div>
 
