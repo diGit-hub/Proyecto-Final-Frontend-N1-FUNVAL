@@ -1,38 +1,98 @@
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/public/images/icons/logo-f7862584.svg" />
+    <link rel="icon" type="image/svg+xml" href="/images/icons/logo-f7862584.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="styles/style.css">
+    <script type="module" src="scripts/main.js"></script>
     <title>Stays | WindBnb</title>
-  </head>
-  <body>
-    <header class="flex justify-between py-4 px-6 mb-4 flex-wrap gap-6 items-center">
+</head>
+
+<body>
+    <header class="flex justify-between py-4 px-6 flex-wrap gap-6 items-center">
         <img alt="WindBnb Logo" src="/images/icons/logo-f7862584.svg">
-        <form class="shadow rounded-xl grid grid-cols-11 grid-rows-1 overflow-hidden h-12 text-search-bar-text min-w-[272px] max-w-[391px] min-[440px]:w-[272px]">
+        <form
+            class="shadow rounded-xl grid grid-cols-11 grid-rows-1 overflow-hidden h-10 text-search-bar-text min-w-68 max-w-97.75 min-[440px]:w-68">
             <input id="location" name="location" placeholder="Add Location"
-            class="col-start-1 col-end-6 row-1 text-xs text-center">
+                class="clickable-bar col-start-1 col-end-6 row-1 text-xs text-center">
             <input id="guests" name="guests" placeholder="Add guests"
-            class="col-start-6 col-end-10 row-1 text-xs text-center border-l border-search-bar-text/50 border-r">
-            <button id="search" class="flex col-start-10 col-end-12 row-1 items-center justify-center"><img alt="search icon" height="16px" width="16px" src="/images/icons/search.svg"></button>
+                class="clickable-bar col-start-6 col-end-10 row-1 text-xs text-center border-l border-search-bar-text/50 border-r">
+            <button id="search" class="flex col-start-10 col-end-12 row-1 items-center justify-center"><img
+                    alt="search icon" height="12px" width="12px" src="/images/icons/search.svg"></button>
         </form>
     </header>
     <main>
+        <div id="popup" class="fixed hidden flex flex-col bg-black/40 w-screen h-screen top-0 left-0">
+            <div class="bg-white h-fit pb-5 px-4">
+                <div class="flex justify-between items-center">
+                    <p class="font-semibold text-sm">Edit your search</p>
+                    <p id="close" class="py-6 px-4 font-bold">X</p>
+                </div>
+                <form id="popup-form" class="flex flex-col gap-6">
+                    <div class="bg-white shadow-md py-4 rounded-2xl">
+                        <label class="px-4 flex flex-col text-xs pb-3.5">Location
+                            <input class="text-sm" id="location-popup" name="location-popup"
+                                placeholder="Vaasa, Finland">
+                        </label>
+                        <div class="h-px bg-search-bar-text w-full"></div>
+                        <label class="px-4 flex flex-col text-xs pt-3.5">Guests
+                            <input class="text-sm" id="guests-popup" name="guests-popup" placeholder="5 guests">
+                        </label>
+                    </div>
+                    <label class="font-bold text-sm flex flex-col gap-0.5 px-4">
+                        Adults
+                        <p class="text-ages-grey font-medium">Ages 13 or above</p>
+                        <div class="flex gap-4 mt-1">
+                            <button id="adults-decrease" type="button"
+                                class="flex text-number-buttons-border justify-center items-center rounded w-6 h-6 bg-number-buttons border border-number-buttons-border">-</button>
+                            <input class="w-8 text-center" type="number" id="adults" name="adults" readonly value="0">
+                            <button id="adults-increase" type="button"
+                                class="flex text-number-buttons-border justify-center items-center rounded w-6 h-6 bg-number-buttons border border-number-buttons-border">+</button>
+                        </div>
+                    </label>
+                    <label class="font-bold text-sm flex flex-col gap-0.5 px-4">
+                        Children
+                        <p class="text-ages-grey font-medium">Ages 13 or above</p>
+                        <div class="flex gap-4 mt-1">
+                            <button id="children-decrease" type="button"
+                                class="flex text-number-buttons-border justify-center items-center rounded w-6 h-6 bg-number-buttons border border-number-buttons-border">-</button>
+                            <input class="w-8 text-center" type="number" id="children" name="children" readonly value="0">
+                            <button id="children-increase" type="button"
+                                class="flex text-number-buttons-border justify-center items-center rounded w-6 h-6 bg-number-buttons border border-number-buttons-border">+</button>
+                        </div>
+                    </label>
+                    <div class="flex justify-center">
+                        <button class="bg-submit-button text-white text-xs flex w-fit px-4 py-2 rounded-xl shadow">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="#ffffff" class="size-4">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                            </svg>
+                            Search
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div id="backdrop" class="grow"></div>
+        </div>
+
 
         <div class="p-4">
-            <div class="flex justify-between">
+            <div class="flex justify-between mb-5 items-center">
                 <h1 class="font-bold text-xl">Stays in Finland</h1>
-                <span>12+ stays</span>
+                <span id="stays-number" class="text-xs text-center text-stays-number-text">+12 stays</span>
             </div>
 
-            <div id="cards">
-
+            <div id="cards" class="grid grid-cols-[repeat(auto-fit,minmax(200px,288px))] gap-6 justify-center">
+                <!-- cards.innerHTML from JS -->
             </div>
         </div>
     </main>
     <footer>
 
     </footer>
-  </body>
+</body>
+
 </html>
