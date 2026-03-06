@@ -4,7 +4,8 @@
  * que define el comportamiento del programa.
  */
 
-import { togglePopup, showAll, showStaysNumber, showFiltered, cleanCards, adjustGuests } from "./utils";
+import { togglePopup, showAll, showStaysNumber, showFiltered, cleanCards,
+    adjustGuests, showLocations } from "./utils";
 
 // Show every stay at website opening
 showAll();
@@ -49,9 +50,56 @@ document.querySelector("#children-decrease").addEventListener("click", () => {
     }
 })
 
+
 // Logic for submitting the form and reloading cards
 document.querySelector('#popup-form').addEventListener('submit', (event) => {
     event.preventDefault();
+    cleanCards();
+    showFiltered();
+    togglePopup();
+    showStaysNumber();
+});
+
+
+//Logic for updating locations list while the user types
+const locationInput = document.querySelector("#location-popup");
+locationInput.addEventListener("input", (e) => {
+    showLocations(e.target.value);
+});
+
+
+//Logic for hiding/showing options dynamically in the form
+const locationInputPopup = document.querySelector("#location-popup");
+const guestsInputPopup = document.querySelector("#guests-popup");
+const guestControls = document.querySelectorAll(".people");
+const locationList = document.querySelector("#location-list");
+
+locationInputPopup.addEventListener("click", () => {
+    showLocations("")
+    locationList.classList.remove("hidden");
+    guestControls.forEach(item => item.classList.add("hidden"));
+});
+
+guestsInputPopup.addEventListener("click", () => {
+    locationList.classList.add("hidden");
+    guestControls.forEach(item => item.classList.remove("hidden"));
+});
+
+locationInputPopup.addEventListener("input", (e) => {
+    showLocations(e.target.value);
+});
+
+
+// Logic for synchronizing the 2 forms
+document.querySelector('#popup-form').addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    const locationValue = document.querySelector("#location-popup").value;
+    const guestsValue = document.querySelector("#guests-popup").value;
+
+    document.querySelector("#location").value = locationValue;
+    document.querySelector("#guests").value = guestsValue ? `${guestsValue} guests` : "";
+
     cleanCards();
     showFiltered();
     togglePopup();

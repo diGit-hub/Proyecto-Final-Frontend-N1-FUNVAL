@@ -23,13 +23,13 @@ function showAll() {
                 </div>
                 <div class="flex flex-col p-2 gap-1">
                     <div class="flex justify-between">
-                        <p class="text-type-and-beds-text text-xs">${stays[index].type}. ${stays[index].beds ? stays[index].beds : "No"} beds</p>
+                        <p class="text-type-and-beds-text text-xs cursor-default">${stays[index].type}. ${stays[index].beds ? stays[index].beds : "No"} beds</p>
                         <div class="flex">
                             <img alt="star icon" height="12px" width="12px" src="../images/icons/star.svg">
-                            <p class="text-xs font-light">${stays[index].rating}</p>
+                            <p class="text-xs font-light cursor-default">${stays[index].rating}</p>
                         </div>
                     </div>
-                    <p class="text-sm font-semibold">${stays[index].title}</p>
+                    <p class="text-sm font-semibold cursor-default">${stays[index].title}</p>
                 </div>
             </div>
         `;
@@ -60,13 +60,13 @@ function showFiltered(){
 
                 <div class="flex flex-col p-2 gap-1">
                     <div class="flex justify-between">
-                        <p class="text-type-and-beds-text text-xs">${filtered[index].type}. ${filtered[index].beds ? filtered[index].beds : "No"} beds</p>
+                        <p class="text-type-and-beds-text text-xs cursor-default">${filtered[index].type}. ${filtered[index].beds ? filtered[index].beds : "No"} beds</p>
                         <div class="flex">
                             <img alt="star icon" height="12px" width="12px" src="../images/icons/star.svg">
-                            <p class="text-xs font-light">${filtered[index].rating}</p>
+                            <p class="text-xs font-light cursor-default">${filtered[index].rating}</p>
                         </div>
                     </div>
-                    <p class="text-sm font-semibold">${filtered[index].title}</p>
+                    <p class="text-sm font-semibold cursor-default">${filtered[index].title}</p>
                 </div>
             </div>
         `;
@@ -80,4 +80,29 @@ function adjustGuests(){
     guests.value = Number(adults.value) + Number(children.value);
 }
 
-export { showAll, togglePopup, showStaysNumber, showFiltered, cleanCards, adjustGuests };
+function showLocations(searchTerm){
+    const locationList = document.querySelector("#location-list");
+    const allLocations = [...new Set(stays.map(stay => `${stay.city}, ${stay.country}`))];
+
+    const filteredLocations = allLocations.filter(loc => loc.toLowerCase().includes(searchTerm.toLowerCase())).slice(0, 4);
+
+    locationList.innerHTML = filteredLocations.map(loc => `
+        <div class="flex gap-2 items-center cursor-pointer selection-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="black" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin-icon lucide-map-pin">
+                <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" />
+                <circle cx="12" cy="10" r="4" fill="white"/>
+            </svg>
+            <p>${loc}</p>
+        </div>
+    `).join("");
+
+    document.querySelectorAll(".selection-item").forEach(item => {
+        item.addEventListener("click", () => {
+            document.querySelector("#location-popup").value = item.querySelector("p").innerText;
+            locationList.innerHTML = "";
+        });
+    });
+}
+
+export { showAll, togglePopup, showStaysNumber, showFiltered, cleanCards, adjustGuests, showLocations };

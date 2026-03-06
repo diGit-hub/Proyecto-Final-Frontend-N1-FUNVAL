@@ -8,4 +8,9 @@
     --color-number-buttons-border: #868686;
     --color-ages-grey: #bfbfce;
     --color-submit-button: #eb5757;
+
+}
+* {
+ margin: 1px;
+ border: red solid 1px;   
 }
