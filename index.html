@@ -24,24 +24,31 @@
         </form>
     </header>
     <main>
-        <div id="popup" class="fixed    flex flex-col bg-black/40 w-screen h-screen top-0 left-0">
+        <div id="popup" class="fixed  hidden  flex flex-col bg-black/40 w-screen h-screen top-0 left-0">
             <div class="bg-white h-fit pb-5 px-4">
                 <div class="flex justify-between items-center">
                     <p class="font-semibold text-sm cursor-default">Edit your search</p>
                     <p id="close" class="py-6 px-4 font-bold cursor-pointer">X</p>
                 </div>
-                <form id="popup-form" class="flex flex-col gap-6">
-                    <div class="bg-white shadow-md py-4 rounded-2xl">
-                        <label class="px-4 flex flex-col text-xs pb-3.5">Location
+
+                <form id="popup-form" class="flex flex-col gap-6
+                md:grid md:grid-cols-3 md:grid-rows-3 md:gap-x-0 md:items-center">
+                    <div class="bg-white shadow-md py-4 rounded-2xl
+                    md:col-start-1 md:col-end-3 md:row-start-1 md:row-end-2 md:flex md:justify-evenly md:h-full md:rounded-r-none">
+                        <label class="px-4 flex flex-col text-xs pb-3.5
+                        md:py-0">Location
                             <input class="text-sm" id="location-popup" name="location-popup"
                                 placeholder="Vaasa, Finland">
                         </label>
-                        <div class="h-px bg-search-bar-text w-full"></div>
-                        <label class="px-4 flex flex-col text-xs pt-3.5">Guests
+                        <div class="h-px bg-search-bar-text w-full
+                        md:hidden"></div>
+                        <label class="px-4 flex flex-col text-xs pt-3.5
+                        md:py-0">Guests
                             <input class="text-sm" id="guests-popup" name="guests-popup" placeholder="5 guests">
                         </label>
                     </div>
-                    <label class="people font-bold text-sm flex flex-col gap-0.5 px-4">
+                    <label class="people font-bold text-sm flex flex-col gap-0.5 px-4
+                    md:col-start-2 md:col-end-3 md:row-start-2 md:row-end-3">
                         Adults
                         <p class="text-ages-grey font-medium">Ages 13 or above</p>
                         <div class="flex gap-4 mt-1">
@@ -52,7 +59,8 @@
                                 class="flex cursor-pointer text-number-buttons-border justify-center items-center rounded w-6 h-6 bg-number-buttons border border-number-buttons-border">+</button>
                         </div>
                     </label>
-                    <label class="people font-bold text-sm flex flex-col gap-0.5 px-4">
+                    <label class="people font-bold text-sm flex flex-col gap-0.5 px-4
+                    md:col-start-2 md:col-end-3 md:row-start-3 md:row-end-4">
                         Children
                         <p class="text-ages-grey font-medium">Ages 13 or above</p>
                         <div class="flex gap-4 mt-1">
@@ -63,11 +71,14 @@
                                 class="flex cursor-pointer text-number-buttons-border justify-center items-center rounded w-6 h-6 bg-number-buttons border border-number-buttons-border">+</button>
                         </div>
                     </label>
-                    <div id="location-list" class="flex flex-col px-4 gap-2">
+                    <div id="location-list" class="flex flex-col px-4 gap-2
+                    ">
                         <!-- Locations will be added here by JS -->
                     </div>
-                    <div class="flex justify-center">
-                        <button class="bg-submit-button cursor-pointer text-white text-xs flex w-fit px-4 py-2 rounded-xl shadow">
+                    <div class="flex justify-center
+                    md:col-start-3 md:col-end-4 md:row-start-1 md:row-end-2 md:items-center md:h-full md:shadow-md rounded-r-2xl">
+                        <button class="bg-submit-button cursor-pointer text-white text-xs flex w-fit px-4 py-2 rounded-xl shadow
+                        md:h-8.5">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="#ffffff" class="size-4">
                                 <path stroke-linecap="round" stroke-linejoin="round"

@@ -6,11 +6,21 @@
 
 import { stays } from "./stays";
 
+/**
+ * Cleans all cards displayed at the screen
+ * @function cleanCards
+ * @returns {void}
+ */
 function cleanCards(){
     const cards = document.querySelector("#cards");
     cards.innerHTML = ``;
 }
 
+/**
+ * Displays all cards in the stays.js
+ * @function showAll
+ * @returns {void}
+ */
 function showAll() {
     cleanCards();
     const cards = document.querySelector("#cards");
@@ -23,7 +33,7 @@ function showAll() {
                 </div>
                 <div class="flex flex-col p-2 gap-1">
                     <div class="flex justify-between">
-                        <p class="text-type-and-beds-text text-xs cursor-default">${stays[index].type}. ${stays[index].beds ? stays[index].beds : "No"} beds</p>
+                        <p class="text-type-and-beds-text text-xs cursor-default">${stays[index].superHost ? `<span class="text-black border rounded-md p-0.5 mr-1">SUPERHOST</span>` : ``}${stays[index].type}. ${stays[index].beds ? stays[index].beds : "No"} beds</p>
                         <div class="flex">
                             <img alt="star icon" height="12px" width="12px" src="../images/icons/star.svg">
                             <p class="text-xs font-light cursor-default">${stays[index].rating}</p>
@@ -36,16 +46,31 @@ function showAll() {
     }
 }
 
+/**
+ * Shows in the main page how many stays are displayed as cards
+ * @function showStaysNumber
+ * @returns {void}
+ */
 function showStaysNumber(){
     const stays = document.querySelectorAll(".card");
     const staysNumber = document.querySelector("#stays-number");
     staysNumber.textContent = `+${stays.length} stays`;
 }
 
+/**
+ * Toggles the form that opens as a popup/modal to appear or disappear
+ * @function togglePopup
+ * @returns {void}
+ */
 function togglePopup(){
     document.querySelector("#popup").classList.toggle("hidden");
 }
 
+/**
+ * Displays all cards that matches the filters at the main page
+ * @function showFiltered
+ * @returns {void}
+ */
 function showFiltered(){
     const cards = document.querySelector("#cards");
     const guests = document.querySelector("#guests-popup")
@@ -73,6 +98,11 @@ function showFiltered(){
     }
 }
 
+/**
+ * Makes the number of Guests in the popup form equal to the number of adults plus children
+ * @function adjustGuests
+ * @returns {void}
+ */
 function adjustGuests(){
     const adults = document.querySelector("#adults");
     const children = document.querySelector("#children");
@@ -80,11 +110,16 @@ function adjustGuests(){
     guests.value = Number(adults.value) + Number(children.value);
 }
 
+/**
+ * Shows options to chose while writing the name of the place in the form
+ * @function showLocations
+ * @returns {void}
+ */
 function showLocations(searchTerm){
     const locationList = document.querySelector("#location-list");
     const allLocations = [...new Set(stays.map(stay => `${stay.city}, ${stay.country}`))];
 
-    const filteredLocations = allLocations.filter(loc => loc.toLowerCase().includes(searchTerm.toLowerCase())).slice(0, 4);
+    const filteredLocations = allLocations.filter(loc => loc.toLowerCase().includes(searchTerm.toLowerCase())).slice(0, 3);
 
     locationList.innerHTML = filteredLocations.map(loc => `
         <div class="flex gap-2 items-center cursor-pointer selection-item">
