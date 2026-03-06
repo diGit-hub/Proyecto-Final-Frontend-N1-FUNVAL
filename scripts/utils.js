@@ -73,8 +73,13 @@ function togglePopup(){
  */
 function showFiltered(){
     const cards = document.querySelector("#cards");
-    const guests = document.querySelector("#guests-popup")
-    const filtered = stays.filter(stay => stay.maxGuests >= guests.value )
+    const guests = document.querySelector("#guests-popup");
+    const location = document.querySelector("#location-popup").value.toLowerCase();
+    const filtered = stays.filter(stay => {
+        const guestsMatch = stay.maxGuests >= Number(guests.value || 0);
+        const locationMatch = location === "" || `${stay.city}, ${stay.country}`.toLowerCase().includes(location);
+        return guestsMatch && locationMatch;
+    });
     for (let index = 0; index < filtered.length; index++) {
         cards.innerHTML += `
             <div class="flex flex-col w-full card">
