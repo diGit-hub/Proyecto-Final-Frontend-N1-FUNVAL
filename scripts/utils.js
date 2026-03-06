@@ -17,9 +17,10 @@ function showAll() {
     for(let index = 0; index < stays.length; index++){
         cards.innerHTML += `
             <div class="flex flex-col w-full card">
-                <img alt="Stay photography in ${stays[index].city}, ${stays[index].country}"
-                src="${stays[index].photo}" class="rounded-2xl w-full max-w-[288px] h-47.5 object-cover" width="288px" height="190px">
-
+                <div class="rounded-2xl w-full max-w-[288px] h-47.5 overflow-hidden">
+                    <img alt="Stay photography in ${stays[index].city}, ${stays[index].country}"
+                    src="${stays[index].photo}" class="rounded-2xl w-full max-w-[288px] h-47.5 object-cover transition-transform duration-300 ease-in-out hover:scale-110" width="288px" height="190px">
+                </div>
                 <div class="flex flex-col p-2 gap-1">
                     <div class="flex justify-between">
                         <p class="text-type-and-beds-text text-xs">${stays[index].type}. ${stays[index].beds ? stays[index].beds : "No"} beds</p>
@@ -52,8 +53,10 @@ function showFiltered(){
     for (let index = 0; index < filtered.length; index++) {
         cards.innerHTML += `
             <div class="flex flex-col w-full card">
-                <img alt="Stay photography in ${filtered[index].city}, ${filtered[index].country}"
-                src="${filtered[index].photo}" class="rounded-2xl w-full max-w-[288px] h-47.5 object-cover" width="288px" height="190px">
+                <div class="rounded-2xl w-full max-w-[288px] h-47.5 overflow-hidden">
+                    <img alt="Stay photography in ${filtered[index].city}, ${filtered[index].country}"
+                    src="${filtered[index].photo}" class="rounded-2xl w-full max-w-[288px] h-47.5 object-cover transition-transform duration-300 ease-in-out hover:scale-110" width="288px" height="190px">
+                </div>
 
                 <div class="flex flex-col p-2 gap-1">
                     <div class="flex justify-between">
